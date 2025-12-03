@@ -1,0 +1,169 @@
+import React, { useState } from 'react'
+import { motion } from 'framer-motion'
+
+// Single-file React dashboard (TailwindCSS assumed to be available).
+// Put your bot logo image at /public/logo.png (the icon you gave).
+// Dependencies: react, framer-motion, tailwindcss
+
+export default function NebulaDashboard() {
+  const [dark, setDark] = useState(true)
+
+  const modules = [
+    { name: 'Antinuke System', emoji: '🛡️' },
+    { name: 'Moderation System', emoji: '🔨' },
+    { name: 'Giveaway System', emoji: '🎁' },
+    { name: 'Utilitys', emoji: '🧰' },
+    { name: 'Ticket System', emoji: '🎫' }
+  ]
+
+  return (
+    <div className={"min-h-screen font-sans " + (dark ? 'neb-dark' : 'neb-light')}>
+      {/* Background layers */}
+      <div className="fixed inset-0 pointer-events-none">
+        {/* Dark: stars, Light: rainy overlay */}
+        {dark ? (
+          <div className="absolute inset-0 bg-black">
+            <div className="stars" />
+          </div>
+        ) : (
+          <div className="absolute inset-0 bg-gray-800/80 backdrop-blur-sm">
+            <div className="rain" />
+          </div>
+        )}
+      </div>
+
+      <div className="relative z-10">
+        <header className="max-w-6xl mx-auto py-8 px-6 flex items-center justify-between">
+          <div className="flex items-center gap-4">
+            <img src="/logo.png" alt="NEBULΔ logo" className="w-14 h-14 rounded-md object-contain" />
+            <div>
+              <h1 className="text-white text-2xl font-bold">N E B U L Δ ™</h1>
+              <p className="text-white text-sm opacity-90">Feature-rich Discord bot dashboard</p>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-3">
+            <a href="https://discord.com/oauth2/authorize?client_id=1434857888081248287" target="_blank" rel="noreferrer" className="px-3 py-2 text-white border border-white/10 rounded-md text-sm">Invite Bot</a>
+            <a href="https://dc.gg/nebula-support" target="_blank" rel="noreferrer" className="px-3 py-2 text-white border border-white/10 rounded-md text-sm">Support</a>
+
+            <button onClick={() => setDark(!dark)} aria-label="Toggle theme" className="px-3 py-2 rounded-md text-white border border-white/10 text-sm">
+              {dark ? 'Dark' : 'Light'} Mode
+            </button>
+          </div>
+        </header>
+
+        <main className="max-w-6xl mx-auto px-6 pb-12">
+          <section className="bg-black/40 rounded-2xl p-8">
+            <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+              <div>
+                <motion.h2 initial={{ y: -20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} className="text-white text-3xl font-extrabold">Welcome to N E B U L Δ ™</motion.h2>
+                <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.15 }} className="text-white mt-2 max-w-xl">A powerful Discord bot with antinuke, moderation, giveaways, ticketing and utility features. Use this dashboard to connect your server, configure modules and let your users interact with the bot from a clean, animated UI.</motion.p>
+
+                <div className="mt-6 flex gap-3">
+                  <a href="/premium" className="inline-flex items-center gap-2 px-4 py-2 rounded-md border border-white/10 text-white text-sm">
+                    <span>💎</span>
+                    <span>Premium Features</span>
+                  </a>
+
+                  <a href="https://discord.com/oauth2/authorize?client_id=1434857888081248287" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 px-4 py-2 rounded-md border border-white/10 text-white text-sm">
+                    <span>🔗</span>
+                    <span>Invite Bot</span>
+                  </a>
+                </div>
+              </div>
+
+              <motion.div initial={{ scale: 0.95, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} className="bg-white/5 rounded-xl p-6 w-full md:w-96">
+                <h3 className="text-white font-semibold">Quick Stats</h3>
+                <ul className="mt-4 text-white text-sm space-y-2">
+                  <li>• Servers: <strong>—</strong></li>
+                  <li>• Active Giveaways: <strong>—</strong></li>
+                  <li>• Open Tickets: <strong>—</strong></li>
+                </ul>
+              </motion.div>
+            </div>
+          </section>
+
+          <section className="mt-8">
+            <h3 className="text-white text-xl font-bold">Modules</h3>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-4">
+              {modules.map((m, idx) => (
+                <motion.div key={m.name} initial={{ y: 10, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: idx * 0.06 }} className="p-6 rounded-xl bg-white/5">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <span className="text-white text-2xl">{m.emoji}</span>
+                      <div>
+                        <div className="text-white font-semibold">{m.name}</div>
+                        <div className="text-white text-sm opacity-90">Configure {m.name.toLowerCase()} and permissions</div>
+                      </div>
+                    </div>
+                    <a className="text-white text-sm opacity-90">Open</a>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </section>
+
+          <section className="mt-12 bg-white/5 p-6 rounded-xl">
+            <h4 className="text-white font-bold">Interactive Area</h4>
+            <p className="text-white text-sm mt-2">Let users connect their server, test commands, preview giveaways and open tickets right from here.</p>
+
+            <div className="mt-4 flex gap-3">
+              <button className="px-4 py-2 rounded-md border border-white/10 text-white">Connect Server</button>
+              <button className="px-4 py-2 rounded-md border border-white/10 text-white">Test Command</button>
+            </div>
+          </section>
+
+          <section className="mt-12">
+            <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4">
+              <div className="text-white">
+                <h5 className="font-semibold">Quick Links</h5>
+                <div className="flex gap-4 mt-2 text-white text-sm">
+                  <a href="#features">Features</a>
+                  <a href="https://dc.gg/nebula-support" target="_blank" rel="noreferrer">Support</a>
+                  <a href="https://discord.com/oauth2/authorize?client_id=1434857888081248287" target="_blank" rel="noreferrer">Invite</a>
+                  <a href="/premium">Premium</a>
+                </div>
+              </div>
+
+              <div className="text-white text-sm">
+                <a href="/privacy">Privacy Policy</a> · <a href="/terms">Terms of Service</a>
+              </div>
+            </div>
+          </section>
+        </main>
+
+        <footer className="max-w-6xl mx-auto px-6 py-6 text-white text-sm">
+          © {new Date().getFullYear()} N E B U L Δ ™ — Made with ❤️
+        </footer>
+      </div>
+
+      {/* Styles (Tailwind + custom) */}
+      <style jsx>{`
+        .neb-dark { background: #000; }
+        .neb-light { background: linear-gradient(180deg,#1f2937,#9ca3af); }
+
+        /* stars */
+        .stars{
+          width:100%;height:100%;background-image: radial-gradient(2px 2px at 20% 30%, rgba(255,255,255,0.9), transparent), radial-gradient(1.5px 1.5px at 70% 10%, rgba(255,255,255,0.8), transparent), radial-gradient(1px 1px at 40% 70%, rgba(255,255,255,0.7), transparent);
+          background-repeat: repeat; background-size: 200px 200px, 300px 300px, 250px 250px;
+        }
+
+        /* rain animation */
+        .rain::before{
+          content: '';
+          position: absolute; inset:0; pointer-events:none;
+          background-image: linear-gradient(transparent 70%, rgba(255,255,255,0.02) 70%);
+          animation: rain 0.6s linear infinite;
+          opacity: 0.8;
+        }
+        @keyframes rain{ from {background-position:0 0} to {background-position:0 100%} }
+
+        /* no glow on text/emojis; all white */
+        h1,h2,h3,h4,h5,p,span,a,button { color: #fff; text-shadow:none !important; }
+
+        /* subtle motion on hover */
+        .p-6:hover{ transform: translateY(-4px); transition: transform .18s ease; }
+      `}</style>
+    </div>
+  )
+}
